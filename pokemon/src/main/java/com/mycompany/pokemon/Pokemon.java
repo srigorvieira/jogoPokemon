@@ -17,15 +17,14 @@ public class Pokemon {
                 + "4 - Encerrar");
        
         //AQUI O USUARIO INFORMA UMA OPÇÃO, A MESMA SERÁ CONVERTIDA E CAÍRA NO SWITCH.
-        String input = JOptionPane.showInputDialog("Digite qual opção deseja:");
+        String input = JOptionPane.showInputDialog("Digite a opção: ");
         int escolha = Integer.parseInt(input);
         
-        switch (escolha){
-            
-            case 1 -> {
-                //VETOR PARA ARMAZENAR AS INFORMAÇÕES DE CADA BICHO
-                poke[] pokemons = new poke[20];
-                
+        //VETOR PARA ARMAZENAR AS INFORMAÇÕES DE CADA BICHO
+        poke[] pokemons = new poke[2];
+        
+        switch (escolha){          
+            case 1 -> {                           
                 //LOOP PARA CADASTRARA CADA UM DOS BICHO
                 JOptionPane.showMessageDialog(null, "Cadastrar Pokemons!");
                 
@@ -37,8 +36,8 @@ public class Pokemon {
                     int atk = Integer.parseInt(JOptionPane.showInputDialog("ATK: "));
                     int def = Integer.parseInt(JOptionPane.showInputDialog("DEF: "));
                     int agilidade = Integer.parseInt(JOptionPane.showInputDialog("Agilidade: "));
-                    break;
                 } 
+                break;
             }
             
             case 2 ->{
@@ -50,13 +49,45 @@ public class Pokemon {
             case 3 ->{
                 //AQUI SERÃO EXIBIDOS TODOS OS POKEMONS QUE FORAM CADASTRADOS
                 //DA FORMA QUE O ABENÇOADO DESEJAR
-                JOptionPane.showMessageDialog(null,"Selecione como deseja listar os pokémons: \n"
+                JOptionPane.showMessageDialog(null,"Selecione uma das opções abaixo para listar: \n\n"
                         + "1 - Exibir todos os atributos\n"
                         + "2 - Exibis os poke ordenados pelos atributos\n"
                         + "3 - Selecionar um pokemon\n"
                         + "4 - Sequencial do mano fibonati");
                 
                 //LEITURA DA ESCOLHA DO USUARIO
+                String option = JOptionPane.showInputDialog("Digite a opção: ");
+                int opcao = Integer.parseInt(option);
+                
+                switch (opcao){
+                    case 1 ->{
+                        //exibe todos os atributos
+                        break;
+                    }
+                    
+                    case 2 ->{
+                        //exibe os pokemons ordenados pelos atributos
+                        break;
+                    }
+                    
+                    case 3 ->{
+                        //seleciona um pokemon
+                        break;
+                    }
+                        
+                    case 4 ->{
+                        //fibonacci
+                        break;
+                    }
+                }
+                
+               
+                
+               
+                
+                
+                
+                
                 
                 break;
             }
