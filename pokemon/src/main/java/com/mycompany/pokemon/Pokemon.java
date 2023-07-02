@@ -1,13 +1,12 @@
 package com.mycompany.pokemon;
 
 import com.mycompany.pokemon.model.poke;
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JOptionPane;
 
 public class Pokemon {
 
-    private static String input;
-
-    @SuppressWarnings("empty-statement")
     public static void main(String[] args) {
         
         //TELA INICIAL COM 4 OPÇÕES, CADASTRAR, BATALHAR, MOSTRAR POKEMON, SAIR
@@ -22,7 +21,7 @@ public class Pokemon {
             int escolha = Integer.parseInt(input);
         
             //VETOR PARA ARMAZENAR AS INFORMAÇÕES DE CADA BICHO
-            poke[] pokemons = new poke[3];
+            poke[] pokemons = new poke[1];
             
         do{    
             switch (escolha){          
@@ -57,13 +56,76 @@ public class Pokemon {
 
                 case 2 ->{
                     //AQUI SERÁ FEITA A BATALHA COM OS POKEMONS CADASTRADOS
-                    JOptionPane.showMessageDialog(null,"Hora da batalha!!!");
-                    break;
+                    
+                    //VARIAVEIS COM QUANTIDADE MAXIMA DE JOGADORES E POKEMON POR JOGADOR
+                    int jogadores = 2;
+                    int pokemonJogadores = 3;
+                    
+                    //AQUI FICA A FILA
+                    Queue<poke>[] filaJogadores = new Queue[jogadores];
+                    for(int i = 0; i < jogadores; i++){
+                        filaJogadores[i] = new LinkedList<>();
+                        
+                        JOptionPane.showMessageDialog(null, "Jogador " + (i + 1)
+                        + ", selecione 3 pokemons: ");
+                        
+                        for (int j = 0; j < pokemonJogadores; j++) {
+                            String mensagemOpcoes = "Selecione um Pokémon:\n";
+                            for (int k = 0; k < pokemons.length; k++) {
+                                mensagemOpcoes += (k + 1) + ". " + pokemons[k].getNome() + "\n";
+                            }
+
+                            String opcaoSelecionada = JOptionPane.showInputDialog(null, mensagemOpcoes);
+                            if (opcaoSelecionada != null) {
+                                int indiceSelecionado = Integer.parseInt(opcaoSelecionada) - 1;
+
+                                if (indiceSelecionado >= 0 && indiceSelecionado < pokemons.length) {
+                                    poke pokemonSelecionado = pokemons[indiceSelecionado];
+                                    filaJogadores[i].add(pokemonSelecionado);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Opção inválida.");
+                                    j--;
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Seleção cancelada.");
+                                break;
+                            }
+                        }                           
+                    }
+                    //MOSTRA OS POKEMONS ESCOLHIDOS
+                    for(int i = 0; i < jogadores; i++){
+                        String msgPokemon = "Jogador " + (i + 1) + ", Pokemons selecionados: \n";
+                        
+                        Queue<poke> filaJogador = filaJogadores[i];
+                        while (!filaJogador.isEmpty()){
+                            poke pokemonSelecionado = filaJogador.poll();
+                            msgPokemon += pokemonSelecionado.getNome() + "\n";
+                        }
+                        
+                        JOptionPane.showMessageDialog(null,msgPokemon);
+                    }
+                    
+                    //ESSA PARTE TA DANDO ERRO
+                    for (int i = 0; i < jogadores; i++) {
+                        poke[] pokemonsSelecionados = pokemonJogadores[i];
+                        for (int j = 0; j < pokemonJogadores - 1; j++) {
+                            int indiceMenor = j;
+                            for (int k = j + 1; k < pokemonJogadores; k++) {
+                                if (pokemonsSelecionados[k].getNome().compareTo(pokemonsSelecionados[indiceMenor].getNome()) < 0) {
+                                indiceMenor = k;
+                                }
+                            }
+                            poke temp = pokemonsSelecionados[j];
+                            pokemonsSelecionados[j] = pokemonsSelecionados[indiceMenor];
+                            pokemonsSelecionados[indiceMenor] = temp;
+                        }
+                    }
+                    
                 }
 
                 case 3 ->{
                     //AQUI SERÃO EXIBIDOS TODOS OS POKEMONS QUE FORAM CADASTRADOS
-                    //DA FORMA QUE O ABENÇOADO DESEJAR
+                    //DA FORMA QUE O ABENÇOADO SELECIONAR
                     JOptionPane.showMessageDialog(null,"Selecione uma das opções abaixo para listar: \n\n"
                             + "1 - Exibir todos os atributos do Pokémon\n"
                             + "2 - Exibir os Pokémons ordenados pelos atributos\n"
@@ -113,7 +175,7 @@ public class Pokemon {
                             int atributo = Integer.parseInt(qualStts);
                             
                             //TESTE COM BUBLE SORT
-                                for(int i = 0; i < pokemons.length - 1; i ++){
+                                for(int i = 0; i < pokemons.length - 1; i++){
                                     for(int j = 0; j < pokemons.length - i -1; j++){
                                         if(pokemons[j] != null && pokemons[j+1] != null){
                                         }
@@ -188,7 +250,35 @@ public class Pokemon {
                         }
                         
                         case 3 ->{
-                            //seleciona um pokemon
+                            //SELECIONA O POKEMON E MOSTRA ELE
+                            String selecionaPokemon = JOptionPane.showInputDialog("Qual Pokémon deseja selecionar?");
+                            int selecionado = Integer.parseInt(selecionaPokemon);
+                            
+                            boolean achou = false;
+                            int indiceAchou = -1;
+                            
+                            //PESQUISA LINEAR                          
+                            for (int i = 0; i < pokemons.length; i++){
+                                if( i + 1 == selecionado){
+                                    achou = true;
+                                    indiceAchou = i;
+                                    break;
+                                }
+                            }
+                            
+                            //VALIDA SE ACHO O POKEMON OU NAO
+                            if(achou){
+                                poke pokemonEncontrado = pokemons[indiceAchou];
+                                String msg = "Pokemon encontrado: \n"
+                                           + "NOME: " + pokemonEncontrado.getNome() + "\n"
+                                           + "FORÇA: " + pokemonEncontrado.getForca() + "\n"
+                                           + "ATK: " + pokemonEncontrado.getAtk() + "\n"
+                                           + "DEF " + pokemonEncontrado.getDef() + "\n"
+                                           + "AGILIDADE: " + pokemonEncontrado.getAgilidade();
+                                JOptionPane.showMessageDialog(null, msg);
+                            } else{
+                                JOptionPane.showMessageDialog(null, "Pokemon não encontrado!!");
+                            }                          
                             break;
                         }
 
@@ -206,11 +296,16 @@ public class Pokemon {
                     break;
                 }
             }
-            escolha = Integer.parseInt(JOptionPane.showInputDialog("Digite a opção: "
+            escolha = Integer.parseInt(JOptionPane.showInputDialog("Digite a opção: \n"
                 + "1 - Cadastrar Pokémons. \n"
                 + "2 - Batalhar. \n"
                 + "3 - Exibir Pokémons. \n"
                 + "4 - Sair do jogo."));
+            
+            if(escolha == 4){
+                break;
+            }
+            
         } while(true);        
     }         
 }
