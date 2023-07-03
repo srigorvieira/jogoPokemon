@@ -21,7 +21,7 @@ public class Pokemon {
             int escolha = Integer.parseInt(input);
         
             //VETOR PARA ARMAZENAR AS INFORMAÇÕES DE CADA BICHO
-            poke[] pokemons = new poke[1];
+            poke[] pokemons = new poke[2];
             
         do{    
             switch (escolha){          
@@ -106,20 +106,20 @@ public class Pokemon {
                     }
                     
                     //ESSA PARTE TA DANDO ERRO
-                    for (int i = 0; i < jogadores; i++) {
-                        poke[] pokemonsSelecionados = pokemonJogadores[i];
-                        for (int j = 0; j < pokemonJogadores - 1; j++) {
-                            int indiceMenor = j;
-                            for (int k = j + 1; k < pokemonJogadores; k++) {
-                                if (pokemonsSelecionados[k].getNome().compareTo(pokemonsSelecionados[indiceMenor].getNome()) < 0) {
-                                indiceMenor = k;
-                                }
-                            }
-                            poke temp = pokemonsSelecionados[j];
-                            pokemonsSelecionados[j] = pokemonsSelecionados[indiceMenor];
-                            pokemonsSelecionados[indiceMenor] = temp;
-                        }
-                    }
+//                    for (int i = 0; i < jogadores; i++) {
+//                        poke[]  = pokemonJogadores[i];
+//                        for (int j = 0; j < pokemonJogadores - 1; j++) {
+//                            int indiceMenor = j;
+//                            for (int k = j + 1; k < pokemonJogadores; k++) {
+//                                if (pokemonsSelecionados[k].getNome().compareTo(pokemonsSelecionados[indiceMenor].getNome()) < 0) {
+//                                indiceMenor = k;
+//                                }
+//                            }
+//                            poke temp = pokemonsSelecionados[j];
+//                            pokemonsSelecionados[j] = pokemonsSelecionados[indiceMenor];
+//                            pokemonsSelecionados[indiceMenor] = temp;
+//                        }
+//                    }
                     
                 }
 
